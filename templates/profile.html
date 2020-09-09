@@ -6,10 +6,12 @@
     <h3>Tweets: {{tweets.count}}</h3>
 {% else %}
     <a href="/"><button>Home</button></a>
-{% if profile in user_following %}
-    <a href="/unfollow/{{profile.id}}/"><button>Unfollow -</button></a>
-{% else %}
-    <a href="/follow/{{profile.id}}/"><button>Follow +</button></a>
+{% if user.is_authenticated %}
+    {% if profile not in user.following.all %}
+        <a href="/follow/{{profile.id}}/"><button>Follow +</button></a>
+    {% else %}
+        <a href="/unfollow/{{profile.id}}/"><button>Unfollow -</button></a>
+    {% endif %}
 {% endif %}
     <br>
     <br>
